@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Proposal 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      font-family: 'Poppins', sans-serif;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated hearts background */
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(45deg);
+      animation: fall 10s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      left: -10px;
+    }
+
+    .heart::after {
+      top: -10px;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10%;
+        opacity: 1;
+      }
+      100% {
+        top: 110%;
+        opacity: 0.3;
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 60px 80px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 30px;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+    }
+
+    button {
+      padding: 18px 40px;
+      font-size: 20px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      font-family: 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #yes {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    #yes:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
+    }
+
+    #no {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+      position: relative;
+      z-index: 10;
+      transition: all 0.2s ease;
+    }
+
+    #no:hover {
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .emoji {
+      font-size: 3em;
+      margin-bottom: 20px;
+      animation: rotate 3s ease-in-out infinite;
+    }
+
+    @keyframes rotate {
+      0%, 100% {
+        transform: rotate(-10deg);
+      }
+      50% {
+        transform: rotate(10deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 30px;
+      }
+      
+      h1 {
+        font-size: 1.8em;
+      }
+      
+      .subtitle {
+        font-size: 1em;
+      }
+      
+      button {
+        padding: 15px 30px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+  
+  <div class="container">
+    <div class="emoji">💝</div>
+    <h1>Will you be my Valentine?</h1>
+    <p class="subtitle">Go on a date with me on February 11? 🌹</p>
+    <div class="buttons">
+      <button id="yes">Yes! 💕</button>
+      <button id="no">No</button>
+    </div>
+  </div>
+
+  <script>
+    // Create animated hearts
+    const heartsContainer = document.getElementById('hearts');
+    for (let i = 0; i < 15; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDelay = Math.random() * 10 + 's';
+      heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+      heartsContainer.appendChild(heart);
+    }
+
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const container = document.querySelector('.container');
+
+    // Predefined 10 positions for NO button (percentages further from edges)
+    const predefinedPositions = [
+      { x: 0.15, y: 0 },  // Top-left
+      { x: 0.5, y: 0.15 },   // Top-center
+      { x: 0.6, y: 0 },  // Top-right
+      { x: 0, y: 0.3 },  // Middle-left
+      { x: 0.6, y: 0.2 },  // Middle-right
+      { x: 0.35, y: 0.6 },  // Bottom-center-left
+      { x: 0.65, y: 0.6 },  // Bottom-center-right
+      { x: 0.6, y: 0.6 },  // Bottom-right
+      { x: 0.5, y: 0.6 }     // Center-bottom
+    ];
+
+    let currentPositionIndex = -1; // Track current position to avoid repeating
+    let moveInterval = null; // Interval for automatic movement
+    let moveSpeed = 2000; // Initial speed: 2 seconds
+    const minSpeed = 300; // Minimum speed: 0.3 seconds
+    const speedDecrease = 200; // Decrease interval by 200ms each time
+
+    // Function to check if NO button would overlap with YES button
+    function wouldOverlap(x, y) {
+      const yesRect = yesBtn.getBoundingClientRect();
+      const noWidth = noBtn.offsetWidth;
+      const noHeight = noBtn.offsetHeight;
+      
+      // Add safety margin around YES button
+      const margin = 50;
+      
+      // Check if the proposed position would overlap with YES button
+      return !(x + noWidth < yesRect.left - margin ||
+               x > yesRect.right + margin ||
+               y + noHeight < yesRect.top - margin ||
+               y > yesRect.bottom + margin);
+    }
+
+    // Function to find a safe position from predefined positions
+    function findSafePosition() {
+      const padding = 50; // More padding for safety
+      
+      // Calculate viewport dimensions
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      
+      // Get actual button dimensions
+      const btnWidth = noBtn.offsetWidth || 150;
+      const btnHeight = noBtn.offsetHeight || 60;
+      
+      // Try to find a safe position from predefined positions
+      const availablePositions = [];
+      
+      for (let i = 0; i < predefinedPositions.length; i++) {
+        const pos = predefinedPositions[i];
+        
+        // Convert percentage to absolute position
+        // Use available space (viewport - button size - 2*padding) and multiply by percentage
+        const availableWidth = viewportWidth - btnWidth - (2 * padding);
+        const availableHeight = viewportHeight - btnHeight - (2 * padding);
+        
+        const x = padding + (pos.x * availableWidth);
+        const y = padding + (pos.y * availableHeight);
+        
+        // Double check bounds
+        if (x >= padding && 
+            y >= padding && 
+            x + btnWidth <= viewportWidth - padding && 
+            y + btnHeight <= viewportHeight - padding &&
+            i !== currentPositionIndex &&
+            !wouldOverlap(x, y)) {
+          availablePositions.push({ x, y, index: i });
+        }
+      }
+      
+      // If we have available positions, pick a random one
+      if (availablePositions.length > 0) {
+        const selected = availablePositions[Math.floor(Math.random() * availablePositions.length)];
+        currentPositionIndex = selected.index;
+        console.log("Selected position index: " + currentPositionIndex);
+        return { x: selected.x, y: selected.y };
+      }
+      
+      // Fallback: center of screen but away from YES button
+      currentPositionIndex = -1;
+      return { 
+        x: Math.max(padding, (viewportWidth - btnWidth) / 2), 
+        y: Math.max(padding, viewportHeight * 0.2) 
+      };
+    }
+
+    // Move NO button away from YES button on hover
+    noBtn.addEventListener('mouseover', () => {
+      noBtn.style.position = 'fixed';
+      noBtn.style.zIndex = '10';
+      const pos = findSafePosition();
+      noBtn.style.left = pos.x + 'px';
+      noBtn.style.top = pos.y + 'px';
+    });
+
+    // Start automatic movement when page loads
+    function moveNoButton() {
+      noBtn.style.position = 'fixed';
+      noBtn.style.zIndex = '10';
+      const pos = findSafePosition();
+      noBtn.style.left = pos.x + 'px';
+      noBtn.style.top = pos.y + 'px';
+      
+      // Increase speed (decrease interval time)
+      if (moveSpeed > minSpeed) {
+        moveSpeed = Math.max(minSpeed, moveSpeed - speedDecrease);
+        // Restart interval with new speed
+        clearInterval(moveInterval);
+        moveInterval = setInterval(moveNoButton, moveSpeed);
+      }
+    }
+    
+    // Move immediately on page load, then start interval
+    moveNoButton(); 
+    moveInterval = setInterval(moveNoButton, moveSpeed);
+
+    // If they somehow click it, move it away immediately and increase speed!
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      noBtn.style.position = 'fixed';
+      const pos = findSafePosition();
+      noBtn.style.left = pos.x + 'px';
+      noBtn.style.top = pos.y + 'px';
+      
+      // Boost speed significantly on click attempt
+      moveSpeed = Math.max(minSpeed, moveSpeed - speedDecrease * 2);
+      clearInterval(moveInterval);
+      moveInterval = setInterval(moveNoButton, moveSpeed);
+    });
+
+    yesBtn.addEventListener('click', () => {
+      // Stop NO button movement
+      clearInterval(moveInterval);
+      
+      // Create celebration effect
+      document.body.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+      container.innerHTML = `
+        <div class="emoji" style="font-size: 5em;">🎉</div>
+        <h1 style="animation: none;">Yay! I'm so happy! 😊</h1>
+        <p class="subtitle" style="font-size: 1.5em; margin-top: 20px;">Can't wait for our date on February 11! 💕</p>
+      `;
+    });
+  </script>
+
+</body>
+</html>
